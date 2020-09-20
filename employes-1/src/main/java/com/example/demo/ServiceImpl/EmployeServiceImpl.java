@@ -27,7 +27,7 @@ public class EmployeServiceImpl implements EmployeeService {
 	@Autowired
 	private JobsRepository jobsRepository;
 
-	@SuppressWarnings("null")
+
 	@Override
 	public EmpleadoBean guardarEmpleado(EmpleadoBeanEntrada empleadoBeanEntrada) {
 
@@ -36,12 +36,12 @@ public class EmployeServiceImpl implements EmployeeService {
 
 		if (!this.genderRepository.existsById(empleadoBeanEntrada.getGenderId())) {
 
-			empleadoBean.setId(empleadoBeanEntrada.getGenderId());
+			empleadoBean.setId(null);
 			empleadoBean.setSuccess(false);
 			return empleadoBean;
 		}
 		if (!this.jobsRepository.existsById(empleadoBeanEntrada.getJobId())) {
-			empleadoBean.setId(empleadoBeanEntrada.getJobId());
+			empleadoBean.setId(null);
 			empleadoBean.setSuccess(false);
 			return empleadoBean;
 		}
@@ -57,7 +57,7 @@ public class EmployeServiceImpl implements EmployeeService {
 		for (Employees employees2 : employees) {
 			if (employees2.getName().equals(empleadoBeanEntrada.getName())
 					&& employees2.getLastName().equals(empleadoBeanEntrada.getLastName()) && edad > 18) {
-				empleadoBean.setId(employees2.getIdEmployes());
+				empleadoBean.setId(null);
 				empleadoBean.setSuccess(false);
 				return empleadoBean;
 			}

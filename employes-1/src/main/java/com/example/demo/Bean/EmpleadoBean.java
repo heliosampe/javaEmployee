@@ -2,14 +2,13 @@ package com.example.demo.Bean;
 
 public class EmpleadoBean {
 	
-	int id;
+	Integer id;
 	boolean success;
-	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int idEmpleado) {
-		this.id = idEmpleado;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public boolean isSuccess() {
 		return success;
@@ -17,4 +16,6 @@ public class EmpleadoBean {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
+	
+
 }
