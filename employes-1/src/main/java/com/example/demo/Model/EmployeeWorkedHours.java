@@ -28,11 +28,17 @@ public class EmployeeWorkedHours implements Serializable {
 	@Column(name = "WORKED_DATE")
 	private Date workedDate;
 
-	// bi-directional many-to-one association to empleados
-	//@OneToMany(fetch = FetchType.LAZY)
-	//@JoinColumn(name = "EMPLOYEE_ID", nullable = false)
-	@Column(name = "EMPLOYEE_ID")
-	private int employeeId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="EMPLOYEE_ID",nullable = false)
+	private Employees employees;
+	
+	
+	
+	
+	
+	public EmployeeWorkedHours() {
+
+	}
 
 	public int getIdEmployeWorkedHours() {
 		return idEmployeWorkedHours;
@@ -58,13 +64,17 @@ public class EmployeeWorkedHours implements Serializable {
 		this.workedDate = workedDate;
 	}
 
-	public int getEmployeeId() {
-		return employeeId;
+	public Employees getEmployees() {
+		return employees;
 	}
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployees(Employees employees) {
+		this.employees = employees;
 	}
+
+
+
+
 	
 
 }

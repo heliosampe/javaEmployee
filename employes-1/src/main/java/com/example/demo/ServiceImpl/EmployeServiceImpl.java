@@ -15,6 +15,8 @@ import com.example.demo.Bean.EmpleadoBeanEntrada;
 import com.example.demo.Bean.EmpleadoHorasBeanEntrada;
 import com.example.demo.Model.EmployeeWorkedHours;
 import com.example.demo.Model.Employees;
+import com.example.demo.Model.Genders;
+import com.example.demo.Model.Jobs;
 import com.example.demo.Repo.EmployeWorkedHoursRepo;
 import com.example.demo.Repo.EmployeeRepo;
 import com.example.demo.Repo.GenderRepository;
@@ -73,8 +75,8 @@ public class EmployeServiceImpl implements EmployeeService {
 		employeesBean.setName(empleadoBeanEntrada.getName());
 		employeesBean.setLastName(empleadoBeanEntrada.getLastName());
 		employeesBean.setBirthname(empleadoBeanEntrada.getBirthname());
-		employeesBean.setGenderId(empleadoBeanEntrada.getGenderId());
-		employeesBean.setJobId(empleadoBeanEntrada.getJobId());
+		employeesBean.setGenders(new Genders(empleadoBeanEntrada.getGenderId()));
+		employeesBean.setJob(new Jobs(empleadoBeanEntrada.getJobId()));
 
 		employeesBean = employeeRepo.save(employeesBean);
 
@@ -89,56 +91,61 @@ public class EmployeServiceImpl implements EmployeeService {
 
 		EmpleadoBean empleadoBean = new EmpleadoBean();
 		Date fechaActual = new Date();
-
-		Optional<EmployeeWorkedHours> employeeWorkedHoursObject = employeWorkedHoursRepo
-				.findById(empleadoHorasBeanEntrada.getEmployee_id());
-		
-		EmployeeWorkedHours employeeWorkedHours = employeeWorkedHoursObject.get();
-
 		
 		if (!this.employeeRepo.existsById(empleadoHorasBeanEntrada.getEmployee_id())) {
 			empleadoBean.setId(null);
 			empleadoBean.setSuccess(false);
 			return empleadoBean;
 		}
+		
 		if (empleadoHorasBeanEntrada.getWorked_hours() > 20) {
 			empleadoBean.setId(null);
 			empleadoBean.setSuccess(false);
 			return empleadoBean;
 		}
-		if ( empleadoHorasBeanEntrada.getWorked_date().compareTo(fechaActual) > 0) {
-			empleadoBean.setId(null);
-			empleadoBean.setSuccess(false);
-			return empleadoBean;
-		}
-		
-		if (employeeWorkedHours.getWorkedDate().compareTo(empleadoHorasBeanEntrada.getWorked_date()) == 0) {
+		if (empleadoHorasBeanEntrada.getWorked_date().compareTo(fechaActual) > 0) {
 			empleadoBean.setId(null);
 			empleadoBean.setSuccess(false);
 			return empleadoBean;
 		}
 
+		
+		
+
+		Optional<EmployeeWorkedHours> employeeWorkedHoursObject = employeWorkedHoursRepo
+				.findById(empleadoHorasBeanEntrada.getEmployee_id());
+		
+			EmployeeWorkedHours employeeWorkedHoursBase = employeeWorkedHoursObject.get();
+			
+			if (employeeWorkedHoursBase.getWorkedDate().compareTo(empleadoHorasBeanEntrada.getWorked_date()) == 0) {
+				empleadoBean.setId(null);
+				empleadoBean.setSuccess(false);
+				return empleadoBean;
+			} 
+		
+
+		
+	
 	
 
-	
-		
-		employeeWorkedHours.setEmployeeId(empleadoHorasBeanEntrada.getEmployee_id());
-		employeeWorkedHours.setWorkedHours(empleadoHorasBeanEntrada.getWorked_hours());
-		employeeWorkedHours.setWorkedDate(empleadoHorasBeanEntrada.getWorked_date());
-		
-		employeWorkedHoursRepo.save(employeeWorkedHours);
-		
-		empleadoBean.setId(empleadoHorasBeanEntrada.getEmployee_id());
-		empleadoBean.setSuccess(true);
-		
-		return empleadoBean;
+			EmployeeWorkedHours employeeWorkedHours = new EmployeeWorkedHours();
+			
+			employeeWorkedHours.setEmployees(new Employees(empleadoHorasBeanEntrada.getEmployee_id()));
+			employeeWorkedHours.setWorkedHours(empleadoHorasBeanEntrada.getWorked_hours());
+			employeeWorkedHours.setWorkedDate(empleadoHorasBeanEntrada.getWorked_date());
 
-	
+			employeWorkedHoursRepo.save(employeeWorkedHours);
+
+			empleadoBean.setId(empleadoHorasBeanEntrada.getEmployee_id());
+			empleadoBean.setSuccess(true);
+
+			return empleadoBean;
+
 	}
 
 	@Override
 	public EmpleadoBean consultarPuestos(int idJob) {
-	
+		// TODO Auto-generated method stub
 		return null;
 	}
 

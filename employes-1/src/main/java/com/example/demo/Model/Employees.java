@@ -3,6 +3,7 @@ package com.example.demo.Model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class Employees implements Serializable  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-	private int idEmployes;
+	private Integer idEmployes;
 	
 	@Column(name = "NAME")
 	private String name;
@@ -36,79 +37,95 @@ public class Employees implements Serializable  {
 	private Date birthname;
 	
 	//bi-directional many-to-one association to gender
-	//@ManyToOne(fetch = FetchType.LAZY)
-	//@JoinColumn(name="GENDER_ID",nullable = false)
-	@Column(name = "GENDER_ID")
-	private int genderId;
-	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="GENDER_ID",nullable = false)
+	private Genders genders;
 	
 	//bi-directional many-to-one association to jobs
-	//@ManyToOne(fetch = FetchType.LAZY)
-	//@JoinColumn(name="JOB_ID",nullable = false)
-	@Column(name = "JOB_ID")
-	private int jobId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="JOB_ID",nullable = false)
+	private Jobs job;
+	
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employees")
+	private List<EmployeeWorkedHours> employeeWorkedHours;
+	
+	
+	
+	
+
+	public List<EmployeeWorkedHours> getEmployeeWorkedHours() {
+		return employeeWorkedHours;
+	}
+
+
+	public void setEmployeeWorkedHours(List<EmployeeWorkedHours> employeeWorkedHours) {
+		this.employeeWorkedHours = employeeWorkedHours;
+	}
+
+
+	public Employees() {
+	
+	}
+	
+
+	public Employees(Integer idEmployes) {
+		this.idEmployes = idEmployes;
+	}
 
 
 	public int getIdEmployes() {
 		return idEmployes;
 	}
 
-
 	public void setIdEmployes(int idEmployes) {
 		this.idEmployes = idEmployes;
 	}
-
 
 	public String getName() {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	public String getLastName() {
 		return lastName;
 	}
 
-
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
 
 	public Date getBirthname() {
 		return birthname;
 	}
 
-
 	public void setBirthname(Date birthname) {
 		this.birthname = birthname;
 	}
 
-
-	public int getGenderId() {
-		return genderId;
+	public Genders getGenders() {
+		return genders;
 	}
 
-
-	public void setGenderId(int genderId) {
-		this.genderId = genderId;
+	public void setGenders(Genders genders) {
+		this.genders = genders;
 	}
 
-
-	public int getJobId() {
-		return jobId;
+	public Jobs getJob() {
+		return job;
 	}
 
-
-	public void setJobId(int jobId) {
-		this.jobId = jobId;
+	public void setJob(Jobs job) {
+		this.job = job;
 	}
+
 	
-	
+//	@Column(name = "JOB_ID")
+//	private int jobId;
+
 
 	
 
