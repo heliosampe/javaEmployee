@@ -8,5 +8,5 @@ public interface EmployeeService {
 
 	EmpleadoBean guardarEmpleado(EmpleadoBeanEntrada empleadoBeanEntrada);
 	EmpleadoBean agregarHoras(EmpleadoHorasBeanEntrada empleadoHorasBeanEntrada);
-
+	EmpleadoBean consultarPuestos(int idJob );
 }

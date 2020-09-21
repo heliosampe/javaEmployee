@@ -136,4 +136,10 @@ public class EmployeServiceImpl implements EmployeeService {
 	
 	}
 
+	@Override
+	public EmpleadoBean consultarPuestos(int idJob) {
+	
+		return null;
+	}
+
 }
