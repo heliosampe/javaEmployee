@@ -112,22 +112,16 @@ public class EmployeServiceImpl implements EmployeeService {
 		
 		
 
-		Optional<EmployeeWorkedHours> employeeWorkedHoursObject = employeWorkedHoursRepo
-				.findById(empleadoHorasBeanEntrada.getEmployee_id());
-		
-			EmployeeWorkedHours employeeWorkedHoursBase = employeeWorkedHoursObject.get();
-			
-			if (employeeWorkedHoursBase.getWorkedDate().compareTo(empleadoHorasBeanEntrada.getWorked_date()) == 0) {
+		List<EmployeeWorkedHours> employeeWorkedHoursObject = employeWorkedHoursRepo.findAll();
+		for (EmployeeWorkedHours employeeWorkedHours : employeeWorkedHoursObject) {
+			if(employeeWorkedHours.getEmployees().getIdEmployes() == empleadoHorasBeanEntrada.getEmployee_id()
+					&& employeeWorkedHours.getWorkedDate().compareTo(empleadoHorasBeanEntrada.getWorked_date()) == 0) {
 				empleadoBean.setId(null);
 				empleadoBean.setSuccess(false);
 				return empleadoBean;
-			} 
-		
-
-		
-	
-	
-
+			}
+			
+		}
 			EmployeeWorkedHours employeeWorkedHours = new EmployeeWorkedHours();
 			
 			employeeWorkedHours.setEmployees(new Employees(empleadoHorasBeanEntrada.getEmployee_id()));
