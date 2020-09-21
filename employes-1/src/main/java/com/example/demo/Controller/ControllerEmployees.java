@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Bean.EmpleadoBean;
 import com.example.demo.Bean.EmpleadoBeanEntrada;
+import com.example.demo.Bean.EmpleadoHorasBeanEntrada;
 import com.example.demo.Service.EmployeeService;
 
 
@@ -29,6 +30,13 @@ public class ControllerEmployees {
 		return response ;
 	}
 
+	@PostMapping({"/agregarHoras"})
+	public EmpleadoBean agregarHoras(@RequestBody EmpleadoHorasBeanEntrada empleadoHorasBeanEntrada) {
+		EmpleadoBean response = new EmpleadoBean(); 
+		response = employeeService.agregarHoras(empleadoHorasBeanEntrada); 
+		return response;
+	}
+	
 	
 
 }
